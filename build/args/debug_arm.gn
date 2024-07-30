@@ -1,0 +1,2 @@
+import("debug_x86.gn")
+target_cpu="arm"

@@ -1,0 +1,2 @@
+import("release_x86.gn")
+target_cpu="arm64"

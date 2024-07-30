@@ -1,0 +1,3 @@
+[submodule "download_service"]
+	path = download_service
+	url = git@codeup.aliyun.com:master/nas_lds/download_service.git

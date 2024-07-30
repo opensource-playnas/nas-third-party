@@ -1,0 +1,46 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+build
+deps
+target
+
+# Executables
+*.exe
+*.out
+*.app
+*.suo
+*.user
+*.VC.db
+*.opendb
+.project
+cmake_install.cmake
+
+CMakeCache.txt
+CMakeFiles/
+Release/
+Debug/
+
+# bazel
+bazel-*

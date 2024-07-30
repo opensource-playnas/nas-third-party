@@ -1,0 +1,8 @@
+import("all.gn")
+target_cpu="x64"
+# use_allocator="none"
+# is_component_build = false
+is_official_build = false
+dcheck_always_on = true
+is_debug=true
+symbol_level = 2

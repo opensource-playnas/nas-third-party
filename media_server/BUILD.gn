@@ -1,0 +1,40 @@
+import("//build/config/c++/c++.gni")
+import("//build/config/win/console_app.gni")
+
+pub_include_dir = [
+  "//nas/third_party",
+  "../common"
+]
+if (is_win) {
+  pub_include_dir += [ "//nas/third_party/ffmpeg/include" ]
+}
+if (is_posix) {
+  pub_include_dir += [ "//nas/third_party/ffmpeg/linux_64/include" ]
+}
+
+executable("ffmpeg_tools") {
+  # 和 win 下保持一致
+  if (is_posix) {
+    output_name = "$target_name.exe"
+  }
+
+  include_dirs = pub_include_dir
+
+  sources = [
+    "src/media_info/media_struct.h",
+    "src/ffmpeg_tools/ffmpeg_api_define.h",
+    "src/ffmpeg_tools/ffmpeg_helper.cc",
+    "src/ffmpeg_tools/ffmpeg_helper.h",
+    "src/ffmpeg_tools/main.cc",
+  ]
+
+  #cflags += [ "-Wheader-hygiene" ]
+  cflags = [ "-w" ]
+  configs += [ "//build/config/c++:runtime_library" ]
+  deps = [
+    "//base:base",
+    "//third_party/re2",
+    "//nas/common:nas_config"
+  ]
+}
+

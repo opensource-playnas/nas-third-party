@@ -1,0 +1,121 @@
+syntax = "proto3";
+package media.v1;
+
+import "media_data_struct.proto";
+
+service MediaService {
+    // 获取视频信息
+    rpc GetMediaInfo(GetMediaInfoRequest) returns (GetMediaInfoResponse);
+    // 开始播放任务(针对需要转码)
+    rpc StartPlay (StartPlayRequest ) returns (StartPlayResponse);
+    // 播放静态文件
+    rpc StartPlayByFile (StartPlayByFileRequest ) returns (StartPlayByFileResponse);
+    // 取消播放任务(针对需要转码的)
+    rpc CancelPlay (CancelPlayRequest ) returns (CancelPlayResponse);
+    // 获取播放任务的切片 ts文件,一般是由访问端的 hls播放框架自动请求
+    rpc GetPlayTs (GetPlayTsRequest ) returns (GetPlayTsResponse);
+    // 获取字幕信息
+    rpc GetSubtitle (GetSubtitleRequest ) returns (GetSubtitleResponse);
+    // 查询转码信息
+    rpc QueryTranscodeInfo (QueryTranscodeInfoRequest ) returns (QueryTranscodeInfoResponse);
+    // 查询播放任务的数量信息
+    rpc QueryPlayTaskInfo (QueryPlayTaskInfoRequest ) returns (QueryPlayTaskInfoResponse);
+
+}
+
+// 获取媒体信息
+message GetMediaInfoRequest{
+    string path = 1;  // 媒体文件地址
+    bool support_hevc = 2;// 访问端是否支持hevc
+}
+message GetMediaInfoResponse{
+  string id = 1;
+  media_data_struct.MediaBaseInfo base_info = 2;
+  repeated media_data_struct.MediaAudioInfo audio = 3;
+  repeated media_data_struct.MediaSubtitle subtitle = 4;
+  repeated media_data_struct.MediaChapter chapter = 5;
+  repeated media_data_struct.SupportResolution resolution = 6;
+}
+
+// 播放视频
+message StartPlayRequest{
+  string play_id = 1;  
+  string media_id = 2;
+  int32 audio_index = 3;
+  double seek_to = 4; // 需要快进到的位置
+  int32 width = 5; //需要转码的宽，当为0时，采用原画质， （前提视频支持原画质，可通过视频信息中的 original_quality 字段标识 ）
+  int32 height = 6;//需要转码的高，当为0时，采用原画质， （前提视频支持原画质，可通过视频信息中的 original_quality 字段标识 ）
+  string x_endpoint_id = 7; // 如果 http 请求 的 header 中带不了 x_endpoint_id 内容的，则通过该参数
+  int32 subtitle_index = 8; // 只有字幕类型为图片时才有效
+  bool hdr_mod = 9; // 只有源视频支持hdr 才有效
+  bool support_hevc = 10;// 访问端是否支持hevc
+}
+
+message StartPlayResponse{
+  string local_path = 1; // 播放 mp4 时，直接返回文件的本地目录,否则,返回生成好的m3u8 文件地址，并启动切片任务
+}
+
+message StartPlayByFileRequest{
+  string media_id = 1;
+}
+
+message StartPlayByFileResponse{
+  string local_path = 1; // 直接返回视频文件的路径
+}
+
+// 播放 ts 片段
+message GetPlayTsRequest{
+  string play_id = 1;
+  int64 fragment_id = 2;  
+  int64 runtime_ticks = 3;
+}
+
+message GetPlayTsResponse{
+  string local_path = 1; 
+}
+
+// 查询转码信息
+message QueryTranscodeInfoRequest{
+  string play_id = 1;
+}
+
+message QueryTranscodeInfoResponse{
+  string play_id = 1;
+  string media_id = 2;
+  string cache_data_dir = 3; // 
+  uint64 first_ts_index = 4; // 当前切片任务的第一个 ts index
+  uint64 last_ts_index = 5; // 当前切片任务的最后一个 ts index,通常是m3u8索引内容中的最后一个index
+  uint64 current_ts_index = 6; // 当前切片任务的正在切的ts 索引
+  double hls_speed =7;  // 当前切片任务的速率(相较于时长成倍数关系)
+  bool equal_length_segments = 8; // 切片长度是否等长
+  int32 hls_status = 9; //0:未开始 1:转码中; 2:完成; 3:失败；4:终止
+  int32 audio_index = 10; // 当前播放的音轨序号
+}
+
+// 根据媒体id获取字幕
+message GetSubtitleRequest{
+  string media_id = 1;
+  int32 subtitle_index = 2; // 当为 -1 时则提取该视频下的所有字幕文件
+  bool is_vtt = 3;
+}
+message GetSubtitleResponse{
+  string local_path = 1; 
+}
+
+// 取消播放
+message CancelPlayRequest{
+  string play_id = 1;
+}
+message CancelPlayResponse{
+}
+
+
+message QueryPlayTaskInfoRequest{
+
+}
+
+message QueryPlayTaskInfoResponse{
+  int32 play_task = 1;// 播放任务的数量
+  int32 transcode_task = 2; // 转码任务的数量
+  bool transcoding_tasks_saturated = 3; // 转码任务已经达到饱和
+}

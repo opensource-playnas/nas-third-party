@@ -1,0 +1,6 @@
+import("all.gn")
+target_cpu="x86"
+use_allocator="none"
+is_official_build = true
+is_debug = false
+chrome_pgo_phase = 0

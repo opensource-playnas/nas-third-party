@@ -1,0 +1,30 @@
+import("//build/config/c++/c++.gni")
+
+
+executable("dummy_media_renderer") {
+  include_dirs = [
+    "//nas/third_party/neptune/Core",
+    "//nas/third_party/platinum/Core",
+    "//nas/third_party/platinum/Devices/MediaConnect",
+    "//nas/third_party/platinum/Devices/MediaRenderer",
+    "//nas/third_party/platinum/Devices/MediaServer",
+    "//nas/third_party/platinum/Platinum",
+    "//nas/third_party/platinum/Extras",
+  ]
+  sources = [
+    "main.cpp",
+    "PltMicroMediaController.h",
+    "PltMicroMediaController.cpp",
+    "DummyPltMediaRenderer.h",
+    "DummyPltMediaRenderer.cc",
+  ]
+
+  #cflags += [ "-Wheader-hygiene" ]
+  cflags = [ "-w" ]
+  configs += [ "//build/config/c++:runtime_library" ]
+  deps = [
+    "//base:base",
+    "//nas/third_party/neptune:Neptune",
+    "//nas/third_party/platinum:Platinum",
+  ]
+}

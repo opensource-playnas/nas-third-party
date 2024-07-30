@@ -1,0 +1,92 @@
+syntax = "proto3";
+package dlna.v1;
+
+service DlnaService {
+    // 获取可投屏的Dlna 设备
+    rpc ListScreenCastingDevices(ListScreenCastingDevicesRequest) returns (ListScreenCastingDevicesResponse);
+    // 创建投屏任务
+    rpc CreateScreenCastingTask(CreateScreenCastingTaskRequest) returns (CreateScreenCastingTaskResponse);
+    // 切换播放源
+    rpc ChangeScreenCastingTaskPlayUrl(ChangeScreenCastingTaskPlayUrlRequest) returns (ChangeScreenCastingTaskPlayUrlResponse);
+    // 取消投屏任务
+    rpc CancelScreenCastingTask(CancelScreenCastingTaskRequest) returns (CancelScreenCastingTaskResponse);
+    // 播放
+    rpc PlayScreenCastingTask(PlayScreenCastingTaskRequest) returns (PlayScreenCastingTaskResponse);
+    // 暂停
+    rpc PauseScreenCastingTask(PauseScreenCastingTaskRequest) returns (PauseScreenCastingTaskResponse);
+    // 进度跳转
+    rpc SeekScreenCastingTask(SeekScreenCastingTaskRequest) returns (SeekScreenCastingTaskResponse);
+    // 设置音量
+    rpc SetScreenCastingTaskVolume(SetScreenCastingTaskVolumeRequest) returns (SetScreenCastingTaskVolumeResponse);
+    
+}
+// 投屏相关    
+message ScreenCastingDevice {
+  string id = 1;
+  string name = 2;
+  string base_url = 3;
+}
+
+message ListScreenCastingDevicesRequest {
+}
+
+message ListScreenCastingDevicesResponse {
+  repeated ScreenCastingDevice devices = 1;
+}
+
+message CreateScreenCastingTaskRequest {
+  string device_id = 1;
+  string play_url = 2;
+}
+
+message CreateScreenCastingTaskResponse {
+  string task_id = 1;
+}
+
+message ChangeScreenCastingTaskPlayUrlRequest {
+  string task_id = 1;
+  string play_url = 2;
+}
+
+message ChangeScreenCastingTaskPlayUrlResponse {
+}
+
+message CancelScreenCastingTaskRequest {
+  string task_id = 1;
+}
+
+message CancelScreenCastingTaskResponse {
+}
+
+message PlayScreenCastingTaskRequest {
+  string task_id = 1;
+}
+
+message PlayScreenCastingTaskResponse {
+}
+
+message PauseScreenCastingTaskRequest {
+  string task_id = 1;
+}
+
+message PauseScreenCastingTaskResponse {
+}
+
+message SeekScreenCastingTaskRequest {
+  string task_id = 1;
+  int64 position = 2;
+}
+
+message SeekScreenCastingTaskResponse {
+}
+
+message SetScreenCastingTaskVolumeRequest {
+  string task_id = 1;
+  int32 volume = 2;
+}
+
+message SetScreenCastingTaskVolumeResponse {
+}
+
+
+

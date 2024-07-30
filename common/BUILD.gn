@@ -1,0 +1,282 @@
+import("//third_party/grpc/grpc_library.gni")
+import("//testing/test.gni")
+source_set("url_fetcher_wrapper"){
+    sources = [
+       "url_fetcher_wrapper/url_fetcher_wrapper.h",
+       "url_fetcher_wrapper/url_fetcher_wrapper.cc",
+       "url_fetcher_wrapper/url_fetcher_helper.h",
+       "url_fetcher_wrapper/url_fetcher_helper.cc",
+       "url_fetcher_wrapper/simple_url_fetcher.h",
+       "url_fetcher_wrapper/simple_url_fetcher.cc",
+       "url_fetcher_wrapper/downloader_request_context_getter.h",
+       "url_fetcher_wrapper/downloader_request_context_getter.cc",
+    ]
+    cflags = [ "-w" ]
+    deps = [
+        "//base:base",
+        "//url:url",
+        "//net:net",
+        "//services/network/public/cpp",
+    ]
+}
+
+executable("url_fetcher_helper_unit_test") {
+  testonly = true
+  sources = [
+     "url_fetcher_wrapper/url_fetcher_helper_unit_test.cc",
+    ]
+  deps = [
+     "//testing/gtest",
+     "//base/test:run_all_unittests",
+     ":encrypt_blowfish_base64",
+     ":url_fetcher_wrapper",
+  ]
+}
+
+source_set("path"){
+    sources = [
+        "path/file_path_unit.cc",
+        "path/file_path_unit.h",
+        "path/path_protected.cc",
+        "path/path_protected.h",
+        "path/profile_def.h"
+    ]
+
+    if (is_win) {
+        sources += [
+            "path/win_utils.h",
+            "path/win_utils.cc"
+        ]
+    }
+
+    cflags = [ "-w" ]
+    configs += [ "//build/config/c++:runtime_library" ]
+    deps = [
+        "//base:base",
+    ]
+}
+
+source_set("nas_config"){
+    sources = [
+       "nas_config.h",
+       "nas_config.cc",
+       "device_config.h",
+       "device_config.cc",
+    ]
+    #cflags += [ "-Wheader-hygiene" ]
+    cflags = [ "-w" ]
+    #configs += [ "//build/config/c++:runtime_library" ]
+    deps = [
+        "//base:base",
+        "//net:net",
+        ":json_file_config",
+        ":path"
+    ]
+}
+
+source_set("encrypt_blowfish_base64"){
+    sources = [
+       "encrypt/blowfish/blowfish.h",
+       "encrypt/blowfish/blowfish.cc",
+       "encrypt/base64/base64.h",
+       "encrypt/base64/base64.cc",
+       "encrypt/encrypt_blowfish_base64.h",
+       "encrypt/encrypt_blowfish_base64.cc",
+    ]
+    deps = [
+        "//base:base",
+    ]
+}
+
+source_set("json_file_config"){
+    sources = [
+       "json_cfg/json_cfg.h",
+       "json_cfg/json_cfg.cc",
+    ]
+    deps = [
+        "//base:base",
+    ]
+}
+
+
+source_set("base64"){
+    sources = [
+       "base64.h",
+       "base64.cc",
+    ]
+    deps = [
+        "//base:base",
+    ]
+}
+
+source_set("common"){
+  sources = [
+    "error_code/general_error_code.h",
+    "error_code/general_error_code.cc",
+    "time_helper/calc_time.h",
+    "time_helper/calc_time.cc"
+  ]
+  deps = [
+      "//base:base",
+  ]
+}
+
+source_set("main"){
+  sources = [
+    "main.cc",
+  ]
+    deps = [
+     "//base:base",
+    ]
+}
+
+# 数据库操作的基类
+source_set("sqlite_store_base"){
+    sources = [
+       "db/sqlite_store_base.h",
+       "db/sqlite_store_base.cc",
+    ]
+    deps = [
+        "//base:base",
+    ]
+}
+
+
+
+source_set("request_context"){
+    sources = [
+        "call_result.h",
+        "call_result.cc",
+        "context_field.h",
+        "context_field.cc",
+        "general_error_code.h",
+    ]
+    #cflags += [ "-Wheader-hygiene" ]
+    cflags = [ "-w" ]
+    #configs += [ "//build/config/c++:runtime_library" ]
+    deps = [
+        "//base:base",
+        "//third_party/grpc:grpc++"
+    ]
+}
+
+source_set("nas_nid"){
+    sources = [
+        "nid/nas_nid.h",
+        "nid/nas_nid.cc",
+        "nid/cpuid_info.h",
+        "nid/hard_disk_info.h",
+        "nid/network_card_info.h",
+        "nid/os_guid.h"
+
+
+    ]
+    if (is_win){
+        sources += [
+            "nid/cpuid_info_win.cc",
+            "nid/hard_disk_info_win.cc",
+            "nid/network_card_info_win.cc",
+            "nid/network_card_info_ex_win.h",
+            "nid/network_card_info_ex_win.cc",
+            "nid/os_guid_win.cc",
+        ]
+    }
+    if (is_posix){
+        sources += [
+            "nid/cpuid_info_posix.cc",
+            "nid/hard_disk_info_posix.cc",
+            "nid/network_card_info_posix.cc",
+            "nid/os_guid_posix.cc",
+        ]
+
+        libs = [ "udev" ]
+    }
+    cflags = [ "-w" ]
+    configs += [ "//build/config/c++:runtime_library" ]
+    deps = [
+        "//base:base",
+    ]
+}
+
+source_set("install_user"){
+    sources = [
+        "install_user/install_user.h"
+    ]
+    if (is_win){
+        sources += [
+            "install_user/install_user_win.cc"
+        ]
+    }
+}
+
+source_set("test_run_process"){
+    sources = []
+    sources += [
+        "test_run_process.cc",
+        "test_run_process.h",
+    ]
+    configs += [ "//build/config/c++:runtime_library" ]
+    deps = [
+        "//base:base",
+    ]
+}
+
+
+grpc_library("grpc_base_service_proto") {
+  sources = [
+    "grpc_base_service/protos/grpc_base_service.proto",
+  ]
+  use_protobuf_full = true
+}
+
+source_set("grpc_base_service"){
+    sources = []
+    sources += [
+        "grpc_base_service/grpc_base_interface.h",
+        "grpc_base_service/grpc_base_service_impl.h",
+        "grpc_base_service/grpc_base_service_impl.cc",
+        "grpc_base_service/grpc_base_service_stub.hpp",
+    ]
+    configs += [ "//build/config/c++:runtime_library" ]
+    deps = [
+        "//base:base",
+        "//third_party/abseil-cpp:absl",
+        "//third_party/grpc:grpc++",
+        ":grpc_base_service_proto"
+    ]
+}
+
+source_set("process"){
+    sources = [
+        "process/process_unit.cc",
+        "process/process_unit.h",
+    ]
+    cflags = [ "-w" ]
+    configs += [ "//build/config/c++:runtime_library" ]
+    deps = [
+        "//base:base",
+    ]
+}
+
+source_set("grpc_server_call_data"){
+    sources = [
+        "grpc_server_call_data.cc",
+        "grpc_server_call_data.h",
+    ]
+    configs += [ "//build/config/c++:runtime_library" ]
+    deps = [
+        "//base:base",
+        "//third_party/grpc:grpc++",
+    ]
+}
+
+source_set("nas_thread"){
+    sources = [
+        "nas_thread.cc",
+        "nas_thread.h",
+    ]
+    configs += [ "//build/config/c++:runtime_library" ]
+    deps = [
+        "//base:base",
+    ]
+}

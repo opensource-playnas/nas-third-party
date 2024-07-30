@@ -1,0 +1,78 @@
+
+import("//testing/test.gni")
+config("impl_config"){
+    include_dirs=[
+      "includes",
+      ]
+}
+source_set("tacopie") {
+  sources = [
+    "sources/network/common/tcp_socket.cpp",
+    "sources/network/io_service.cpp",
+    "sources/network/tcp_client.cpp",
+    "sources/network/tcp_server.cpp",
+    "sources/network/unix/unix_self_pipe.cpp",
+    "sources/network/unix/unix_tcp_socket.cpp",
+    "sources/network/windows/windows_self_pipe.cpp",
+    "sources/network/windows/windows_tcp_socket.cpp",
+    "sources/utils/error.cpp",
+    "sources/utils/logger.cpp",
+    "sources/utils/thread_pool.cpp",
+  ]
+  configs += [ "//build/config/compiler:exceptions" ]
+  configs += [ ":impl_config"]
+}
+
+executable("example_tcp_client"){
+  configs += [ ":impl_config"]
+  sources = [
+    "examples/tcp_client.cpp",
+    ]
+    # TODO (steple): For windows, link ws2_32 instead.
+    #linkopts = ["-lpthread"],
+    
+  deps = [
+    ":tacopie",
+  ]
+}
+
+executable("example_tcp_server"){
+  configs += [ ":impl_config"]
+  sources = [
+    "examples/tcp_server.cpp",
+    ]
+    # TODO (steple): For windows, link ws2_32 instead.
+    #linkopts = ["-lpthread"],
+    
+  deps = [
+    ":tacopie",
+  ]
+}
+
+
+# Note: Basic infrastructure for gtest-based tests exists, but no tests are
+# actually implemented (this will always pass).
+# executable("test_tacopie"){
+#   testonly = true
+  
+#   configs += [ ":impl_config"]
+#   sources = [
+#     "tests/sources/main.cpp",
+#     ]
+#     # TODO (steple): For windows, link ws2_32 instead.
+#     #linkopts = ["-lpthread"],
+    
+#   deps = [
+#     ":tacopie",
+#   ]
+# }
+
+
+group("tacopie_group") {
+  deps = [
+    #":test_tacopie",
+    ":example_tcp_server",
+    ":example_tcp_client",
+  ]
+}
+

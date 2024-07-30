@@ -1,0 +1,2 @@
+root_extra_deps = [ "nas" ]
+#clang_use_chrome_plugins = false

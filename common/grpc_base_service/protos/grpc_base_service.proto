@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package nas;
+
+service GrpcBaseService {
+    rpc Stop(StopRequest) returns (StopResponse);
+    rpc Reset(ResetRequest) returns (ResetResponse); 
+}
+
+message StopRequest {
+
+}
+
+message StopResponse {
+
+}
+
+// 重置等级,恢复数据
+enum ResetLevel {
+  kResetData = 0;
+  kDeleteDevice = 1;
+};
+
+message ResetRequest {
+  ResetLevel level = 1;
+}
+
+message ResetResponse {
+
+}

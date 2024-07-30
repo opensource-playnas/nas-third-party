@@ -1,0 +1,57 @@
+source_set("matroska"){
+    include_dirs = [
+        "//nas/third_party",
+    ]
+    lib_dirs = [
+        "F:\project\chromium\src\out\dbgx86",
+    ]
+    sources = [
+        "FileKax.h",
+        "FileKax.cpp",
+        "KaxAttached.h",
+        "KaxAttached.cpp",
+        "KaxAttachments.h",
+        "KaxAttachments.cpp",
+        "KaxBlock.h",
+        "KaxBlock.cpp",
+        "KaxBlockData.h",
+        "KaxBlockData.cpp",
+        "KaxChapters.h",
+        "KaxCluster.h",
+        "KaxCluster.cpp",
+        "KaxClusterData.h",
+        "KaxConfig.h",
+        "KaxContentEncoding.h",
+        "KaxContexts.h",
+        "KaxContexts.cpp",
+        "KaxCues.h",
+        "KaxCues.cpp",
+        "KaxCuesData.h",
+        "KaxCuesData.cpp",
+        "KaxDefines.h",
+        "KaxInfo.h",
+        "KaxInfoData.h",
+        "KaxInfoData.cpp",
+        "KaxSeekHead.h",
+        "KaxSeekHead.cpp",
+        "KaxSegment.h",
+        "KaxSegment.cpp",
+        "KaxSemantic.h",
+        "KaxSemantic.cpp",
+        "KaxTag.h",
+        "KaxTags.h",
+        "KaxTrackAudio.h",
+        "KaxTrackEntryData.h",
+        "KaxTracks.h",
+        "KaxTracks.cpp",
+        "KaxTrackVideo.h",
+        "KaxTypes.h",
+        "KaxVersion.h",
+        "KaxVersion.cpp",
+    ]
+    cflags = ["-Xclang", "-fcxx-exceptions"]
+    cflags += [ "-w" ]
+    deps = [
+        #"../ebml:lds_ebml",
+    ]
+}

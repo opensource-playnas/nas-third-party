@@ -1,0 +1,87 @@
+import("//build/config/c++/c++.gni")
+import("//build/config/win/console_app.gni")
+import("//third_party/grpc/grpc_library.gni")
+
+grpc_library("dlna_proto") {
+  # use_protobuf_full=true
+  sources = [
+    "protos/dlna_server.proto",
+  ]
+  use_protobuf_full = true
+}
+
+executable("dlna.service") {
+  # 和 win 下保持一致
+  if (is_posix) {
+    output_name = "$target_name.exe"
+  }
+  include_dirs = [
+     "//nas/dlna_server/src",
+    "//nas/third_party",
+    "../common",
+    "//nas/third_party/neptune/Core",
+    "//nas/third_party/platinum/Core",
+    "//nas/third_party/platinum/Devices/MediaConnect",
+    "//nas/third_party/platinum/Devices/MediaRenderer",
+    "//nas/third_party/platinum/Devices/MediaServer",
+    "//nas/third_party/platinum/Platinum",
+    "//nas/third_party/platinum/Extras",
+  ]
+  sources = [
+    "main.cc",
+    "src/utils.cc",
+    "src/utils.h",
+    "src/error_desc.cc",
+    "src/error_desc.h",
+    "src/public_define.cc",
+    "src/public_define.h",
+    "src/screen_casting/screen_casting_task.h",
+    "src/screen_casting/screen_casting_task.cc",
+    "src/screen_casting/screen_casting_mgr.h",
+    "src/screen_casting/screen_casting_mgr.cc",
+    
+    "src/grpc_call_data/list_screen_casting_devices.h",
+    "src/grpc_call_data/list_screen_casting_devices.cc",
+    "src/grpc_call_data/create_screen_casting_task.h",
+    "src/grpc_call_data/create_screen_casting_task.cc",
+    "src/grpc_call_data/change_screen_casting_task_play_url.h",
+    "src/grpc_call_data/change_screen_casting_task_play_url.cc",
+    "src/grpc_call_data/cancel_screen_casting_task.h",
+    "src/grpc_call_data/cancel_screen_casting_task.cc",
+    "src/grpc_call_data/play_screen_casting_task.h",
+    "src/grpc_call_data/play_screen_casting_task.cc",
+    "src/grpc_call_data/pause_screen_casting_task.h",
+    "src/grpc_call_data/pause_screen_casting_task.cc",
+    "src/grpc_call_data/seek_screen_casting_task.h",
+    "src/grpc_call_data/seek_screen_casting_task.cc",
+    "src/grpc_call_data/set_screen_casting_task_volume.h",
+    "src/grpc_call_data/set_screen_casting_task_volume.cc",
+
+    "src/dlna_server_async_impl.h",
+    "src/dlna_server_async_impl.cc"
+  ]
+  #cflags += [ "-Wheader-hygiene" ]
+  cflags = [ "-w" ]
+  configs += [ "//build/config/c++:runtime_library" ]
+  configs += [ "//third_party/grpc:grpc_config" ]
+  configs += [ "//build/config/compiler:exceptions" ] 
+  deps = [
+     ":dlna_proto",
+    "//base:base",
+    "//nas/common:common",
+    "//nas/common:grpc_base_service",
+    "//nas/common:nas_config",
+    "//nas/common:path",
+    "//nas/common:request_context",
+    "//nas/common:nas_thread",
+    "//nas/cpp_redis:cpp_redis",
+    "//nas/common:grpc_server_call_data",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/grpc:grpc++",
+    "//third_party/grpc/src/src/proto/grpc/health/v1:health_proto",
+    "//third_party/re2",
+    "//nas/third_party/neptune:Neptune",
+    "//nas/third_party/platinum:Platinum",
+  ]
+  deps += [ "MicroMediaController:dummy_media_renderer" ]
+}

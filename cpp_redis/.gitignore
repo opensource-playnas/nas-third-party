@@ -1,0 +1,55 @@
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Fortran module files
+*.mod
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# IDE Project files
+.idea
+.vscode
+
+# Autogen directories
+build
+deps
+target
+lib
+
+# Executables
+*.exe
+*.out
+*.app
+*.suo
+*.user
+*.VC.db
+*.opendb
+.project
+cmake_install.cmake
+
+CMakeCache.txt
+CMakeFiles/
+Release/
+Debug/
+Makefile
+
+# bazel
+bazel-*
+#backup
+*.bak

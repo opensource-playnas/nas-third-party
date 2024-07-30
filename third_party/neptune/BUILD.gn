@@ -1,0 +1,153 @@
+source_set("Neptune"){
+    include_dirs = [
+        "Core",
+        "ThirdParty\axTLS\ssl",
+        "ThirdParty\axTLS\crypto",
+    ]
+    if (is_win){
+        include_dirs += [
+            "ThirdParty\axTLS\config\Win32",
+            "system/Win32",
+        ]
+    }else{
+        include_dirs += [
+            "ThirdParty\axTLS\config\Generic",
+            "system/Posix",
+        ]
+    }
+    if (is_win) {
+        libs = [ "Ws2_32.lib" ]
+    }
+    sources = [
+        "Core/Neptune.cpp",
+        "Core/Neptune.h",
+        "Core/NptArray.h",
+        "Core/NptAutomaticCleaner.cpp",
+        "Core/NptAutomaticCleaner.h",
+        "Core/NptAutoreleasePool.h",
+        "Core/NptBase64.cpp",
+        "Core/NptBase64.h",
+        "Core/NptBufferedStreams.cpp",
+        "Core/NptBufferedStreams.h",
+        "Core/NptCommon.cpp",
+        "Core/NptCommon.h",
+        "Core/NptConfig.h",
+        "Core/NptConsole.cpp",
+        "Core/NptConsole.h",
+        "Core/NptConstants.h",
+        "Core/NptCrypto.cpp",
+        "Core/NptCrypto.h",
+        "Core/NptDataBuffer.cpp",
+        "Core/NptDataBuffer.h",
+        "Core/NptDebug.cpp",
+        "Core/NptDebug.h",
+        "Core/NptDefs.h",
+        "Core/NptDigest.cpp",
+        "Core/NptDigest.h",
+        "Core/NptDynamicCast.h",
+        "Core/NptDynamicLibraries.cpp",
+        "Core/NptDynamicLibraries.h",
+        "Core/NptFile.cpp",
+        "Core/NptFile.h",
+        "Core/NptHash.cpp",
+        "Core/NptHash.h",
+        "Core/NptHttp.cpp",
+        "Core/NptHttp.h",
+        "Core/NptInterfaces.h",
+        "Core/NptJson.cpp",
+        "Core/NptJson.h",
+        "Core/NptList.cpp",
+        "Core/NptList.h",
+        "Core/NptLogging.cpp",
+        "Core/NptLogging.h",
+        "Core/NptMap.h",
+        "Core/NptMessaging.cpp",
+        "Core/NptMessaging.h",
+        "Core/NptNetwork.cpp",
+        "Core/NptNetwork.h",
+        "Core/NptQueue.cpp",
+        "Core/NptQueue.h",
+        "Core/NptReferences.h",
+        "Core/NptResults.cpp",
+        "Core/NptResults.h",
+        "Core/NptRingBuffer.cpp",
+        "Core/NptRingBuffer.h",
+        "Core/NptSelectableMessageQueue.h",
+        "Core/NptSerialPort.h",
+        "Core/NptSimpleMessageQueue.cpp",
+        "Core/NptSimpleMessageQueue.h",
+        "Core/NptSockets.cpp",
+        "Core/NptSockets.h",
+        "Core/NptStack.h",
+        "Core/NptStreams.cpp",
+        "Core/NptStreams.h",
+        "Core/NptStrings.cpp",
+        "Core/NptStrings.h",
+        "Core/NptSystem.cpp",
+        "Core/NptSystem.h",
+        "Core/NptThreads.cpp",
+        "Core/NptThreads.h",
+        "Core/NptTime.cpp",
+        "Core/NptTime.h",
+        "Core/NptTls.cpp",
+        "Core/NptTls.h",
+        "Core/NptTlsDefaultTrustAnchorsBase.h",
+        "Core/NptTlsDefaultTrustAnchorsExtended.h",
+        "Core/NptTypes.h",
+        "Core/NptUri.cpp",
+        "Core/NptUri.h",
+        "Core/NptUtils.cpp",
+        "Core/NptUtils.h",
+        "Core/NptVersion.h",
+        "Core/NptXml.cpp",
+        "Core/NptXml.h",
+
+        "system/Bsd/NptBsdResolver.cpp",
+        "system/Bsd/NptBsdSockets.cpp",
+
+        "system/StdC/NptStdcConsole.cpp",
+        "system/StdC/NptStdcDebug.cpp",
+        "system/StdC/NptStdcEnvironment.cpp",
+        "system/StdC/NptStdcFile.cpp",
+    ]
+
+    if (is_win){
+        sources += [
+            "system/Posix/NptPosixFile.cpp",           
+
+            "system/Win32/NptWin32DynamicLibraries.cpp",
+            "system/Win32/NptWin32File.cpp",
+            "system/Win32/NptWin32MessageQueue.cpp",
+            "system/Win32/NptWin32MessageQueue.h",
+            "system/Win32/NptWin32Network.cpp",
+            "system/Win32/NptWin32Network.h",
+            "system/Win32/NptWin32Queue.cpp",
+            "system/Win32/NptWin32SerialPort.cpp",
+            "system/Win32/NptWin32System.cpp",
+            "system/Win32/NptWin32Threads.cpp",
+            "system/Win32/NptWin32Threads.h",
+            "system/Win32/NptWin32Time.cpp",
+            "ThirdParty/axTLS/config/Win32/config.h",
+        ]
+    }else{
+         sources += [
+            "system/Bsd/NptBsdNetwork.cpp",
+            "system/Posix/NptPosixDynamicLibraries.cpp",
+            "system/Posix/NptPosixEnvironment.cpp",
+            "system/Posix/NptPosixNetwork.cpp",
+            "system/Posix/NptPosixQueue.cpp",
+            "system/Posix/NptPosixFile.cpp",
+            "system/Posix/NptPosixSystem.cpp",
+            "system/Posix/NptPosixThreads.cpp",
+            "system/Posix/NptPosixTime.cpp",
+            "system/Posix/NptSelectableMessageQueue.cpp",
+            "ThirdParty/axTLS/config/Generic/config.h",
+        ]
+    }
+
+    cflags = ["-Xclang", "-fcxx-exceptions"]
+    cflags += [ "-w","-Wc++11-narrowing" ]
+    configs += [ "//build/config/compiler:rtti" ]
+    
+    
+}

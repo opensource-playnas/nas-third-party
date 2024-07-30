@@ -1,0 +1,17 @@
+import("all.gn")
+target_cpu="x64"
+use_allocator="none"
+
+# https://www.chromium.org/developers/testing/control-flow-integrity/
+# https://blog.trailofbits.com/2016/10/17/lets-talk-about-cfi-clang-edition/
+# build\config\sanitizers\BUILD.gn
+# 默认为true，会导致很多地方crash,暂时先不检查
+is_cfi = false
+use_cfi_icall = false
+is_component_build = false
+is_official_build = true
+dcheck_always_on = true
+use_thin_lto = false
+is_debug=false
+symbol_level = 1
+chrome_pgo_phase = 0

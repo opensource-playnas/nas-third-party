@@ -1,0 +1,53 @@
+syntax = "proto3";  
+
+package media_data_struct;
+
+
+// TODO 增加一个空的 service, 不然apifox无法导入, 后续如果apifox无该限制, 理应去掉
+service MediaDefineService {}
+
+message MediaBaseInfo{
+    string path = 1;
+    string title = 2;
+    uint64 file_size = 3;
+    string container = 4;
+    uint64 duration = 5;
+    int32 width = 6;
+    int32 height = 7;
+    string codec_name = 8;
+    uint64 bitrate = 9;
+    string aspect_ratio = 10;
+    bool h264_mp4 = 11;
+    bool original_quality = 12;
+    int32 rotation = 13;
+    bool support_hdr = 14;
+    bool support_static_play = 15; // 如果支持静态播放，则说明支持原画，可以不用转码
+}
+
+message MediaAudioInfo{
+    string codec_name = 1;
+    int64 bitrate = 2;
+    int32 channels = 3;
+    uint64 sample_rate = 4;
+    string language = 5;
+    string title = 6;
+    int32 index = 7; // 播放视频时需要指定
+}
+
+message MediaSubtitle{
+    string codec_name = 1;
+    string title = 2;
+    string language = 3;
+    int32 index = 4; // 播放视频时需要指定
+}
+message MediaChapter{
+    string title = 1;
+    double start_time = 2;
+    double end_time = 3;
+}
+
+message SupportResolution{
+    string title = 1;
+    int32 width = 2;
+    int32 height = 3;
+}

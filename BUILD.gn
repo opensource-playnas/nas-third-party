@@ -1,0 +1,52 @@
+import("//testing/test.gni")
+import("//third_party/grpc/grpc_library.gni")
+import("//third_party/protobuf/proto_library.gni")
+
+
+config("myconfig") {
+  include_dirs = [ "." ]
+}
+
+group("projects") {
+  deps = [
+    "cpp_redis:cpp_redis_group",
+    "media_server:ffmpeg_tools",
+    "dlna_server:dlna.service",
+    "download_service/download_server:download.service",
+  ]
+
+}
+
+group("nas_unittest_group") {
+  testonly = true
+  deps = [
+    #"nas_service:nas_service_unittest",
+  ]
+}
+
+group("nas"){
+    deps = [":projects"]
+    # deps += [ ":dispatch_for_ide" ]
+}
+
+
+# 编译完成后执行动作o
+action("dispatch_for_ide") {
+
+    arg = [
+        "--project_dir", rebase_path("//nas"),
+        "--cachepath", rebase_path("$root_out_dir"),
+    ]
+     if (is_debug) {
+        arg += [ "--buildmode", "Debug" ]
+    } else {
+        arg += [ "--buildmode", "Release" ]
+    }
+    arg += ["--targetcpu", "${target_cpu}"]
+    script = "dispatch_for_ide.py"
+    outputs = [ "$root_out_dir/output" ]
+    args = arg
+    deps = [":projects"]
+}
+
+
