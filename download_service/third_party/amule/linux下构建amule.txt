@@ -1,0 +1,27 @@
+export PATH="$PATH:/home/wy/workspace/chromium/depot_tools"
+
+1、wxWidget-3.0.5
+sudo apt-get install libgtk-3-dev
+tar -xzf wxWidgets-3.0.5.tar.gz
+cd wxWidgets-3.0.5
+mkdir build-static
+cd build-static
+静态库在编译时需要指定-fPIC编译选项，不然在编译某个需要依赖它的动态库时，会报错
+../configure --disable-shared --enable-unicode CXXFLAGS="-fPIC" CFLAGS="-fPIC"
+make
+sudo make install
+
+2、amule2.3.1
+libwxgtk3.0-gtk3-dev这种直接装是动态库，所以需要自己编译wxwidget
+sudo apt-get update
+sudo apt-get install build-essential  libxtst-dev libpng-dev libgd-dev zlib1g-dev libgeoip-dev libupnp-dev libxslt1-dev libsqlite3-dev libssl-dev libboost-all-dev
+sudo apt-get install ibcrypto++-dev
+chmod +x configure
+
+要修改各个目录下的Makefile.am文件
+
+sudo autoconf2.69 -i
+sudo ./configure --disable-debug --with-denoise-level=3 --with-geoip-static --enable-upnp --enable-geoip --enable-nls --enable-amule-daemon --enable-mmap --disable-alcc --disable-alc --disable-cas --disable-wxcas --disable-amule-gui --disable-amulecmd CXXFLAGS="-g -fPIC" CFLAGS="-g -fPIC" 
+sudo make
+执行完成之后，最后链接amuled的时候，不会报错，但生成出来的是可执行程序，不是动态库（应该是之前在makefile里面没改到这个选项-shared），需要重新用命令行来执行，加了-shared
+g++ -g -W -Wall -Wshadow -Wundef -pthread -shared -o libnetmule.so amuled-mule_download_task_impl.o amuled-amule_settings.o amuled-amuled.o amuled-amule.o amuled-BaseClient.o amuled-ClientList.o amuled-ClientCreditsList.o amuled-ClientTCPSocket.o amuled-ClientUDPSocket.o amuled-CorruptionBlackBox.o amuled-DownloadClient.o amuled-DownloadQueue.o amuled-ECSpecialCoreTags.o amuled-EMSocket.o amuled-EncryptedStreamSocket.o amuled-EncryptedDatagramSocket.o amuled-ExternalConn.o amuled-FriendList.o amuled-IPFilter.o amuled-KnownFileList.o amuled-ListenSocket.o amuled-MuleUDPSocket.o amuled-SearchFile.o amuled-SearchList.o amuled-ServerConnect.o amuled-ServerList.o amuled-ServerSocket.o amuled-ServerUDPSocket.o amuled-SHAHashSet.o amuled-SharedFileList.o amuled-ThreadTasks.o amuled-UploadBandwidthThrottler.o amuled-UploadClient.o amuled-UploadQueue.o kademlia/kademlia/amuled-Kademlia.o kademlia/kademlia/amuled-Prefs.o kademlia/kademlia/amuled-Search.o kademlia/kademlia/amuled-UDPFirewallTester.o kademlia/net/amuled-KademliaUDPListener.o kademlia/net/amuled-PacketTracking.o kademlia/routing/amuled-Contact.o kademlia/routing/amuled-RoutingZone.o amuled-amuleAppCommon.o amuled-ClientRef.o amuled-ECSpecialMuleTags.o amuled-KnownFile.o amuled-GetTickCount.o amuled-GuiEvents.o amuled-HTTPDownload.o amuled-Logger.o amuled-PartFile.o amuled-Preferences.o amuled-Proxy.o amuled-Server.o amuled-Statistics.o amuled-StatTree.o amuled-UserEvents.o -pthread -pthread  -lpthread -L. -lmuleappcommon -Llibs/common -Llibs/ec/cpp -lmulecommon -lec -lmulesocket -lcryptopp -lmuleappcore -lupnp -lixml -L/usr/local/lib /usr/local/lib/libwx_baseu_net-3.0.a /usr/local/lib/libwx_baseu-3.0.a -lwxregexu-3.0 -lz -lm -pthread

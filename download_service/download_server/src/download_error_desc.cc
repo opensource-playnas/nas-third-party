@@ -1,0 +1,208 @@
+/*
+ * @Description:
+ * @copyright 2023 The Master Lu PC-Group Authors. All rights reserved
+ * @Author: wanyan@ludashi.com
+ * @Date: 2023-05-15 11:17:07
+ */
+
+#include "download_error_desc.h"
+
+#include <map>
+
+namespace nas {
+static std::map<DownloadErrorCode, const char*> download_error_list = {
+    {DownloadErrorCode::kNormal, "成功"},
+    {DownloadErrorCode::kUserIdIsNotExist, "用户不存在"},
+    {DownloadErrorCode::kTaskIdIsNotExist, "任务不存在"},
+    {DownloadErrorCode::kTaskIdExisted, "任务id已存在"},
+    {DownloadErrorCode::kCreateTaskFailed, "任务创建失败"},
+    {DownloadErrorCode::kAddTaskFailed, "添加任务失败"},
+    {DownloadErrorCode::kCreateDirFailed,
+     "创建下载目录失败，当前下载目录无法被创建，请尝试下载到其他目录"},
+    {DownloadErrorCode::kPerformFailed, "下载过程中失败"},
+    {DownloadErrorCode::kFileMissing, "文件丢失"},
+    {DownloadErrorCode::kExistSameTask, "存在相同的任务"},
+    {DownloadErrorCode::kCreateFileFailed,
+     "创建下载文件失败，当前下载目录无法写入数据，请尝试下载到其他目录"},
+    {DownloadErrorCode::kRenameTempFileFailed, "重命名临时文件失败"},
+    {DownloadErrorCode::kUploadFileFailed, "上传文件失败"},
+    {DownloadErrorCode::kFileNameExisted, "存在相同的任务名称"},
+    {DownloadErrorCode::kPathExceedLimit, "路径超出了255字符限制"},
+    {DownloadErrorCode::kFileIoError, "文件写入失败或文件已损坏"},
+    {DownloadErrorCode::kProtectedPath,
+     "该下载目录为受保护目录，请尝试下载到其他目录"},
+    {DownloadErrorCode::kInvalidFileName,
+     "无效的文件名称"},
+
+    // curl
+    {DownloadErrorCode::kCreateCurlTaskFailed, "创建curl任务失败"},
+    {DownloadErrorCode::kCurlUrlInvalid, "链接无效"},
+    {DownloadErrorCode::kParseCurlUrlFailed, "解析curl失败"},
+    {DownloadErrorCode::kPerformCurlFailed, "执行curl错误,下载失败"},
+    {DownloadErrorCode::kCurleUnsupportedProtocol, "不支持的协议"},
+    {DownloadErrorCode::kCurleFailedInit, "初始化失败"},
+    {DownloadErrorCode::kCurleUrlMalformat, "URL 格式不正确"},
+    {DownloadErrorCode::kCurleNotBuiltIn, "已废弃,不再使用"},
+    {DownloadErrorCode::kCurleCouldntResolveProxy, "无法解析代理服务器"},
+    {DownloadErrorCode::kCurleCouldntResolveHost, "无法解析主机名"},
+    {DownloadErrorCode::kCurleCouldntConnect, "无法连接到主机或代理"},
+    {DownloadErrorCode::kCurleWeirdServerReply, "服务器返回了异常的响应"},
+    {DownloadErrorCode::kCurleRemoteAccessDenied,
+     "远程服务器拒绝访问(例如,登录失败)"},
+    {DownloadErrorCode::kCurleFtpAcceptFailed, "FTP 服务器无法接受连接"},
+    {DownloadErrorCode::kCurleFtpWeirdPassReply,
+     "FTP 服务器返回了异常的 PASS(密码)响应"},
+    {DownloadErrorCode::kCurleFtpAcceptTimeout, "FTP 服务器接受连接超时"},
+    {DownloadErrorCode::kCurleFtpWeirdPasvReply,
+     "FTP 服务器返回了异常的 PASV(被动模式)响应"},
+    {DownloadErrorCode::kCurleFtpWeird227Format,
+     "FTP 服务器返回了异常的 227 响应(表示被动模式)"},
+    {DownloadErrorCode::kCurleFtpCantGetHost, "无法获取 FTP 主机信息"},
+    {DownloadErrorCode::kCurleHttp2, "HTTP/2 协议层面的问题"},
+    {DownloadErrorCode::kCurleFtpCouldntSetType,
+     "无法设置 FTP 传输类型(例如ASCII 或二进制)"},
+    {DownloadErrorCode::kCurlePartialFile, "文件只部分传输完成"},
+    {DownloadErrorCode::kCurleFtpCouldntRetrFile, "FTP 服务器无法检索文件"},
+    {DownloadErrorCode::kCurleObsolete20, "已废弃,不再使用"},
+    {DownloadErrorCode::kCurleQuoteError, "引用命令失败"},
+    {DownloadErrorCode::kCurleHttpReturnedError, "HTTP 服务器返回了错误状态码"},
+    {DownloadErrorCode::kCurleWriteError,
+     "写入本地文件时发生错误, 可能磁盘空间不足"},
+    {DownloadErrorCode::kCurleObsolete24, "已废弃,不再使用"},
+    {DownloadErrorCode::kCurleUploadFailed, "上传文件失败"},
+    {DownloadErrorCode::kCurleReadError, "无法打开或读取文件"},
+    {DownloadErrorCode::kCurleOutOfMemory,
+     "内存不足(如果启用了 CURL_DOES_CONVERSIONS,可能表示转换错误)"},
+    {DownloadErrorCode::kCurleOperationTimedout, "操作超时"},
+    {DownloadErrorCode::kCurleObsolete29, "已废弃,不再使用"},
+    {DownloadErrorCode::kCurleFtpPortFailed, "FTP PORT 命令失败"},
+    {DownloadErrorCode::kCurleFtpCouldntUseRest, "FTP REST 命令失败"},
+    {DownloadErrorCode::kCurleObsolete32, "已废弃,不再使用"},
+    {DownloadErrorCode::kCurleRangeError, "RANGE 命令无效"},
+    {DownloadErrorCode::kCurleHttpPostError, "HTTP POST 操作失败"},
+    {DownloadErrorCode::kCurleSslConnectError, "使用 SSL 连接时出错"},
+    {DownloadErrorCode::kCurleBadDownloadResume, "无法恢复下载"},
+    {DownloadErrorCode::kCurleFileCouldntReadFile, "无法读取文件"},
+    {DownloadErrorCode::kCurleLdapCannotBind, "LDAP 无法绑定"},
+    {DownloadErrorCode::kCurleLdapSearchFailed, "LDAP 搜索失败"},
+    {DownloadErrorCode::kCurleObsolete40, "已废弃,不再使用"},
+    {DownloadErrorCode::kCurleFunctionNotFound,
+     "从 7.53.0 版本开始已废弃,不再使用"},
+    {DownloadErrorCode::kCurleAbortedByCallback, "操作被回调函数中止"},
+    {DownloadErrorCode::kCurleBadFunctionArgument, "函数参数错误"},
+    {DownloadErrorCode::kCurleObsolete44, "已废弃,不再使用"},
+    {DownloadErrorCode::kCurleInterfaceFailed, "CURLOPT_INTERFACE 设置失败"},
+    {DownloadErrorCode::kCurleObsolete46, "已废弃,不再使用"},
+    {DownloadErrorCode::kCurleTooManyRedirects, "重定向次数过多"},
+    {DownloadErrorCode::kCurleUnknownOption, "用户指定了未知选项"},
+    {DownloadErrorCode::kCurleSetoptOptionSyntax, "setopt 选项语法错误"},
+    {DownloadErrorCode::kCurleObsolete50, "已废弃,不再使用"},
+    {DownloadErrorCode::kCurleObsolete51, "已废弃,不再使用"},
+    {DownloadErrorCode::kCurleGotNothing, "没有收到任何数据"},
+    {DownloadErrorCode::kCurleSslEngineNotfound, "找不到 SSL 加密引擎"},
+    {DownloadErrorCode::kCurleSslEngineSetfailed,
+     "无法将 SSL 加密引擎设置为默认"},
+    {DownloadErrorCode::kCurleSendError, "发送网络数据失败"},
+    {DownloadErrorCode::kCurleRecvError, "接收网络数据失败"},
+    {DownloadErrorCode::kCurleObsolete57, "已废弃,不再使用"},
+    {DownloadErrorCode::kCurleSslCertproblem, "本地证书问题"},
+    {DownloadErrorCode::kCurleSslCipher, "无法使用指定的加密算法"},
+    {DownloadErrorCode::kCurlePeerFailedVerification,
+     "对等方的证书或指纹未通过验证"},
+    {DownloadErrorCode::kCurleBadContentEncoding, "无法识别或错误的内容编码"},
+    {DownloadErrorCode::kCurleLdapInvalidUrl, "无效的 LDAP URL"},
+    {DownloadErrorCode::kCurleFilesizeExceeded, "超过最大文件大小限制"},
+    {DownloadErrorCode::kCurleUseSslFailed, "请求的 FTP SSL 级别失败"},
+    {DownloadErrorCode::kCurleSendFailRewind, "发送数据需要回滚,但回滚失败"},
+    {DownloadErrorCode::kCurleSslEngineInitfailed, "初始化 SSL 引擎失败"},
+    {DownloadErrorCode::kCurleLoginDenied,
+     "用户、密码或类似凭据未被接受,登录失败"},
+    {DownloadErrorCode::kCurleTftpNotfound, "服务器上找不到文件"},
+    {DownloadErrorCode::kCurleTftpPerm, "服务器上的权限问题"},
+    {DownloadErrorCode::kCurleRemoteDiskFull, "服务器磁盘空间不足"},
+    {DownloadErrorCode::kCurleTftpIllegal, "非法的 TFTP 操作"},
+    {DownloadErrorCode::kCurleTftpUnknownid, "未知的传输 ID"},
+    {DownloadErrorCode::kCurleRemoteFileExists, "文件已存在"},
+    {DownloadErrorCode::kCurleTftpNosuchUser, "无此用户"},
+    {DownloadErrorCode::kCurleConvFailed, "转换失败"},
+    {DownloadErrorCode::kCurleConvReqd,
+     "调用者必须使用 curl_easy_setopt 选项注册转换回调函数"},
+    {DownloadErrorCode::kCurleSslCacertBadfile,
+     "无法加载 CACERT 文件,文件丢失或格式错误"},
+    {DownloadErrorCode::kCurleRemoteFileNotFound, "未找到远程文件"},
+    {DownloadErrorCode::kCurleSsh, "SSH 层面的错误,具体错误信息需查看错误消息"},
+    {DownloadErrorCode::kCurleSslShutdownFailed, "无法关闭 SSL 连接"},
+    {DownloadErrorCode::kCurleAgain,
+     "套接字未准备好发送/接收数据,等待准备好后重试"},
+    {DownloadErrorCode::kCurleSslCrlBadfile,
+     "无法加载 CRL 文件,文件丢失或格式错误"},
+    {DownloadErrorCode::kCurleSslIssuerError, "发行人检查失败"},
+    {DownloadErrorCode::kCurleFtpPretFailed, "FTP PRET 命令失败"},
+    {DownloadErrorCode::kCurleRtspCseqError, "RTSP CSeq 数字不匹配"},
+    {DownloadErrorCode::kCurleRtspSessionError, "RTSP 会话 ID 不匹配"},
+    {DownloadErrorCode::kCurleFtpBadFileList, "无法解析 FTP 文件列表"},
+    {DownloadErrorCode::kCurleChunkFailed, "块回调报告错误"},
+    {DownloadErrorCode::kCurleNoConnectionAvailable,
+     "没有可用的连接,会话将排队等待"},
+    {DownloadErrorCode::kCurleSslPinnedpubkeynotmatch, "指定的固定公钥不匹配"},
+    {DownloadErrorCode::kCurleSslInvalidcertstatus, "证书状态无效"},
+    {DownloadErrorCode::kCurleHttp2Stream, "HTTP/2 协议帧层面的流错误"},
+    {DownloadErrorCode::kCurleRecursiveApiCall, "回调函数中调用了 API 函数"},
+    {DownloadErrorCode::kCurleAuthError, "认证问题"},
+    {DownloadErrorCode::kCurleHttp3, "HTTP/3 层面的问题"},
+    {DownloadErrorCode::kCurleQuicConnectError, "QUIC 连接层面的问题"},
+    {DownloadErrorCode::kCurleProxy, "代理服务器错误"},
+    {DownloadErrorCode::kCurleSslClientCert, "SSL 客户端证书问题"},
+
+    // ed2k
+    {DownloadErrorCode::kEd2kTaskExisted, "ed2k任务已存在"},
+    {DownloadErrorCode::kEd2kLinkInvalid, "ed2k链接无效"},
+    {DownloadErrorCode::kWriteEd2kFileFailed, "写ed2k文件失败"},
+
+    // magnet
+    {DownloadErrorCode::kMagnetTaskExisted, "magnet任务已存在"},
+    {DownloadErrorCode::kMagnetLinkInvalid, "magnet链接无效"},
+    {DownloadErrorCode::kAddMagnetTaskFailed, "添加magnet失败"},
+    {DownloadErrorCode::kMagnetParseFailed, "magnet解析失败"},
+
+    // torrent file
+    {DownloadErrorCode::kTorrentFileTaskExisted, "bt种子文件任务已存在"},
+    {DownloadErrorCode::kTorrentFileInvalid, "bt种子文件无效"},
+    {DownloadErrorCode::kAddTorrentTaskFailed, "添加bt种子文件失败"},
+    {DownloadErrorCode::kTorrentFileParseFailed, "bt种子解析失败"},
+
+    {DownloadErrorCode::kPauseTaskFailed, "暂停任务失败"},
+
+    {DownloadErrorCode::kResumeTaskFailed, "恢复任务失败"},
+
+    {DownloadErrorCode::kDeleteTaskFailed, "删除任务失败"},
+    {DownloadErrorCode::kDeleteLocalFileFailed, "删除本地文件失败"},
+
+    {DownloadErrorCode::kRetryTaskFailed, "重试任务失败"},
+
+    {DownloadErrorCode::kCleanTaskFailed, "清理失效任务失败"},
+
+    {DownloadErrorCode::kRestoreTaskFailed, "还原回收站任务失败"},
+
+    {DownloadErrorCode::kDbFailed, "操作db失败"},
+
+    // http error codes
+    {DownloadErrorCode::kHttpError400, "请求无效"},
+    {DownloadErrorCode::kHttpError401, "无法进行身份验证"},
+    {DownloadErrorCode::kHttpError403, "没有访问权限"},
+    {DownloadErrorCode::kHttpError404, "找不到页面"},
+    {DownloadErrorCode::kHttpError408, "请求超时"},
+    {DownloadErrorCode::kHttpError500, "服务器错误"},
+    {DownloadErrorCode::kHttpError501, "不支持的操作"},
+    {DownloadErrorCode::kHttpError502, "网关错误"},
+    {DownloadErrorCode::kHttpError503, "服务不可用"},
+    {DownloadErrorCode::kHttpError504, "网关超时"}};
+
+const char* GetDownloadErrorDesc(DownloadErrorCode error_no) {
+  auto iter = download_error_list.find(error_no);
+  if (iter != download_error_list.end()) {
+    return iter->second;
+  }
+  return "未知异常";
+}
+}  // namespace nas

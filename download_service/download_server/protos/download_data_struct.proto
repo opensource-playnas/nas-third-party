@@ -1,0 +1,57 @@
+syntax = "proto3";
+
+package download_data_struct;
+
+message SourceData {
+  string task_id = 1;    // 任务id
+  string source = 2;     // url链接源
+  string save_path = 3;  // 保存路径
+  string file_name = 4;  // 文件名称
+  string file_size = 5;  // 文件大小
+}
+
+message TorrentItemSelectData {
+  int32 index = 1;
+  int32 is_selected = 2;
+}
+
+message FileInfo {
+  string file_name = 1;  // 文件名称
+  string file_size = 2;  // 文件大小
+  string file_type = 3;  // 文件类型
+  double progress = 4;   // 进度
+}
+
+message DownloadTaskInfo {
+  string task_id = 1;                    // 任务id
+  string source = 2;                     // url链接源
+  string save_path = 3;                  // 保存路径
+  int32 task_status = 4;                 // 任务状态
+  int32 task_category = 5;               // 任务分类
+  bool task_is_valid = 6;                // 任务是否有效
+  string file_list_info = 7;  // 文件信息列表
+  string name = 8;                       // 任务名称
+  string total_size = 9;                 // 总大小
+  double total_progress = 10;            // 总进度
+  double download_speed = 11;            // 下载速度
+  double upload_speed = 12;              // 上传速度
+  string completed_size = 13;            // 完成大小
+  int32 time_remaining = 14;             // 剩余时间
+  string create_timestamp = 15;          // 创建时间
+  string finish_timestamp = 16;          // 完成时间
+  string delete_timestamp = 17;          // 删除时间
+  string converted_source = 18;  // 将下载源链接source进行转换，
+                                 // 目前暂时用于bt种子文件转成磁力链接
+  string file_type = 19; // 文件类型
+  int32 download_type = 20; // 下载类型
+  string local_land_name = 21;   // 本机落地文件名
+  int32 err_code = 22;  // 错误码
+  string msg = 23;      // 错误消息描述
+}
+
+message SourceParseInfo {
+  string file_name = 1;  // 文件名称
+  string file_size = 2;  // 文件大小
+  string file_type = 3;  // 文件类型
+  int32 index = 4;       // 文件索引
+}

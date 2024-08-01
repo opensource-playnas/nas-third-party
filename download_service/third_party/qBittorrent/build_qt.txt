@@ -1,0 +1,86 @@
+****************windows编译****************
+https://github.com/qbittorrent/qBittorrent/wiki/Compiling:-MSVC-2017-(static-linkage)
+详细参照这个官方链接来编译，以下是记录的某些关键问题或者之前遇到的坑
+
+启动x86 Native Tools Command Prompt for vs 2017
+
+********boost1.81.0********：
+下载boost_1_81_0-msvc-14.1-32.exe直接安装，然后cd boost_1_81_0目录执行
+b2 -q --with-system --toolset=msvc-14.1 variant=release link=static runtime-link=static include="F:\project_code\nas_lds\download_service\third_party\qBittorrent\install_msvc32\base\include" library-path="F:\project_code\nas_lds\download_service\third_party\qBittorrent\install_msvc32\base\lib" define=BOOST_ASIO_DISABLE_CONNECTEX cxxflags="-O1 -Oy- -Gy -Gw -GL" linkflags="/NOLOGO /DYNAMICBASE /NXCOMPAT /LTCG /OPT:REF /OPT:ICF=5 /MANIFEST:EMBED /INCREMENTAL:NO" --hash -j 6
+
+********libtorrent2.0.9********：
+注意：一定要把install_msvc32\base\include下面的libtorrent之前的头文件都删掉，不然如果残留之前版本的头文件，再编译新版本时会报错
+在编译完成之后，需要在qBittorrent工程的src.pro中添加DEFINES += QBT_USES_LIBTORRENT2，只有libtorrent2.x以上的版本才支持bittorrent v2协议
+b2 -q --without-python --toolset=msvc-14.1 address-model=32 variant=debug link=static runtime-link=static debug-symbols=on encryption=on crypto=openssl openssl-version=1.1 logging=off dht=on windows-version=win10 boost-link=static -sBOOST_ROOT="F:\project_code\nas_lds\download_service\third_party\qBittorrent\boost_1_81_0" include="F:\project_code\nas_lds\download_service\third_party\qBittorrent\install_msvc32\base\include" include="F:\project_code\nas_lds\download_service\third_party\qBittorrent\boost_1_81_0" library-path="F:\project_code\nas_lds\download_service\third_party\qBittorrent\install_msvc32\base\lib" library-path="F:\project_code\nas_lds\download_service\third_party\qBittorrent\boost_1_81_0\stage\lib" --prefix="F:\project_code\nas_lds\download_service\third_party\qBittorrent\install_msvc32\base" define=BOOST_ASIO_DISABLE_CONNECTEX cxxflags="-O1 -Oy- -Gy -Gw -GL" linkflags="/NOLOGO /DYNAMICBASE /NXCOMPAT /LTCG /OPT:REF /OPT:ICF=5 /MANIFEST:EMBED /INCREMENTAL:NO" --hash -j 6
+
+b2 -q --without-python --toolset=msvc-14.1 address-model=32 variant=debug link=static runtime-link=static debug-symbols=on encryption=on crypto=openssl openssl-version=1.1 logging=off dht=on windows-version=win10 boost-link=static -sBOOST_ROOT="F:\project_code\nas_lds\download_service\third_party\qBittorrent\boost_1_81_0" include="F:\project_code\nas_lds\download_service\third_party\qBittorrent\install_msvc32\base\include" include="F:\project_code\nas_lds\download_service\third_party\qBittorrent\boost_1_81_0" library-path="F:\project_code\nas_lds\download_service\third_party\qBittorrent\install_msvc32\base\lib" library-path="F:\project_code\nas_lds\download_service\third_party\qBittorrent\boost_1_81_0\stage\lib" --prefix="F:\project_code\nas_lds\download_service\third_party\qBittorrent\install_msvc32\base" define=BOOST_ASIO_DISABLE_CONNECTEX cxxflags="-O1 -Oy- -Gy -Gw -GL" linkflags="/NOLOGO /DYNAMICBASE /NXCOMPAT /LTCG /OPT:REF /OPT:ICF=5 /MANIFEST:EMBED /INCREMENTAL:NO" --hash -j 6 install
+
+********qt5.15.2********：
+进入qt文件夹，然后修改文件，qtbase/mkspecs/common/msvc-desktop.conf，具体修改参照最上面官方说明
+再执行
+configure -prefix F:\project_code\nas_lds\download_service\third_party\qBittorrent\install_msvc32\qt5 -I F:\project_code\nas_lds\download_service\third_party\qBittorrent\install_msvc32\base\include -L F:\project_code\nas_lds\download_service\third_party\qBittorrent\install_msvc32\base\lib -platform win32-msvc -debug -opensource -confirm-license -strip -no-shared -static -static-runtime -ltcg -make libs -make tools -nomake examples -no-compile-examples -no-dbus -no-icu -system-zlib -openssl-linked -no-gtk -no-opengl -no-opengles3 -no-angle -no-sql-sqlite -no-sql-odbc -no-sqlite -skip qt3d -skip qtactiveqt -skip qtandroidextras -skip qtcanvas3d -skip qtcharts -skip qtconnectivity -skip qtdatavis3d -skip qtdeclarative -skip qtdoc -skip qtgamepad -skip qtgraphicaleffects -skip qtimageformats -skip qtlocation -skip qtmacextras -skip qtmultimedia -skip qtnetworkauth -skip qtpurchasing -skip qtquickcontrols -skip qtquickcontrols2 -skip qtremoteobjects -skip qtscript -skip qtscxml -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtvirtualkeyboard -skip qtwayland -skip qtwebchannel -skip qtwebengine -skip qtwebglplugin -skip qtwebsockets -skip qtwebview -skip qtx11extras -skip qtxmlpatterns ZLIB_LIBS="-lzlibd" OPENSSL_LIBS="-lzlibd -llibcryptod -llibssld -lgdi32 -luser32 -lws2_32 -lAdvapi32 -lCrypt32"
+
+configure -prefix F:\project_code\nas_lds\download_service\third_party\qBittorrent\install_msvc32\qt5 -I F:\project_code\nas_lds\download_service\third_party\qBittorrent\install_msvc32\base\include -L F:\project_code\nas_lds\download_service\third_party\qBittorrent\install_msvc32\base\lib -platform win32-msvc -release -opensource -confirm-license -strip -no-shared -static -static-runtime -ltcg -make libs -make tools -nomake examples -no-compile-examples -no-dbus -no-icu -system-zlib -openssl-linked -no-gtk -no-opengl -no-opengles3 -no-angle -no-sql-sqlite -no-sql-odbc -no-sqlite -skip qt3d -skip qtactiveqt -skip qtandroidextras -skip qtcanvas3d -skip qtcharts -skip qtconnectivity -skip qtdatavis3d -skip qtdeclarative -skip qtdoc -skip qtgamepad -skip qtgraphicaleffects -skip qtimageformats -skip qtlocation -skip qtmacextras -skip qtmultimedia -skip qtnetworkauth -skip qtpurchasing -skip qtquickcontrols -skip qtquickcontrols2 -skip qtremoteobjects -skip qtscript -skip qtscxml -skip qtsensors -skip qtserialbus -skip qtserialport -skip qtspeech -skip qtvirtualkeyboard -skip qtwayland -skip qtwebchannel -skip qtwebengine -skip qtwebglplugin -skip qtwebsockets -skip qtwebview -skip qtx11extras -skip qtxmlpatterns ZLIB_LIBS="-lzlib" OPENSSL_LIBS="-lzlib -llibcrypto -llibssl -lgdi32 -luser32 -lws2_32 -lAdvapi32 -lCrypt32"
+
+jom -j N
+jom -j N install
+
+*****************linux下编译qBittorrent*****************
+1、编译qt
+tar -xf qt-everywhere-src-5.13.2.tar.xz
+cd qt-everywhere-src-5.13.2/
+mkdir build-static
+cd build-static
+sudo apt-get install libxcb-xfixes0-dev
+../configure -static -release -opensource -confirm-license -prefix ../../install_linux -nomake examples -nomake tests -qt-xcb QMAKE_CXXFLAGS+="-fPIC" QMAKE_CFLAGS+="-fPIC"
+../configure执行可能报错，报错头文件添加#include <limits>
+
+vim ~/.bashrc
+export PATH="/usr/bin/python3:$PATH"
+sudo ln -s /usr/bin/python3 /usr/bin/python
+make -j$(nproc)
+make install
+
+2、编译boost，暂时有问题
+wget https://boostorg.jfrog.io/artifactory/main/release/1.71.0/source/boost_1_81_0.tar.gz
+tar -xf boost_1_81_0.tar.gz
+cd boost_1_81_0
+./bootstrap.sh --with-libraries=all --with-toolset=/usr/bin/gcc-9 link=static
+
+然后，打开 project-config.jam 文件并找到以下行
+using gcc ;
+将其修改为： using gcc : : : <cxxflags>-fPIC <cflags>-fPIC ;
+sudo ./b2 cxxflags="-fPIC" cflags="-fPIC" link=static install
+
+
+
+3、编译libtorrent
+wget https://github.com/arvidn/libtorrent/releases/download/libtorrent-1_2_2/libtorrent-rasterbar-1.2.2.tar.gz
+tar xf libtorrent-rasterbar-1.2.2.tar.gz
+cd libtorrent-rasterbar-1.2.2
+
+//./configure --enable-python-binding --disable-shared CXXFLAGS="-fPIC"
+//make
+
+
+b2 link=static crypto=openssl cxxflags=-fPIC release
+
+libtorrent1.2.7
+wget https://github.com/arvidn/libtorrent/releases/download/libtorrent_1_2_7/libtorrent-rasterbar-1.2.7.tar.gz
+tar xf libtorrent-rasterbar-1.2.7.tar.gz
+cd libtorrent-rasterbar-1.2.7
+./configure --disable-debug --disable-shared --enable-encryption --with-libgeoip=system CXXFLAGS="-std=c++14 -fPIC"(静态库)
+./configure --disable-debug --enable-encryption --with-libgeoip=system CXXFLAGS="-std=c++14"（(动态库)）
+make -j$(nproc)
+make install
+ldconfig
+
+4、qBittorrent4.2.5编译
+qmake PREFIX=/usr/local qbittorrent.pro
+make -j$(nproc)
+sudo make install
+
+nano ~/.bashrc
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+source ~/.bashrc
+

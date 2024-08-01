@@ -1,0 +1,40 @@
+﻿  Create config.h
+  SVNDATE is 11121
+  no Boost found, using wx sockets
+  FileFunctions.cpp
+  Format.cpp
+  MD5Sum.cpp
+  MuleDebug.cpp
+  Path.cpp
+  StringFunctions.cpp
+  TextFile.cpp
+  Please update wx/platform.h to recognize this VC++ version
+  Please update wx/platform.h to recognize this VC++ version
+  Please update wx/platform.h to recognize this VC++ version
+  Please update wx/platform.h to recognize this VC++ version
+  Please update wx/platform.h to recognize this VC++ version
+  Please update wx/platform.h to recognize this VC++ version
+  Please update wx/platform.h to recognize this VC++ version
+f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(349): warning C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to acknowledge that you have received this warning. (编译源文件 ..\..\..\..\..\src\libs\common\Format.cpp)
+  d:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ios(351): note: 参见“std::tr1”的声明 (编译源文件 ..\..\..\..\..\src\libs\common\Format.cpp)
+  f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(352): note: 参见对正在编译的 类 模板 实例化 "wxFormatStringSpecifier<T>" 的引用 (编译源文件 ..\..\..\..\..\src\libs\common\Format.cpp)
+f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(349): warning C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to acknowledge that you have received this warning. (编译源文件 ..\..\..\..\..\src\libs\common\MD5Sum.cpp)
+  d:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ios(351): note: 参见“std::tr1”的声明 (编译源文件 ..\..\..\..\..\src\libs\common\MD5Sum.cpp)
+  f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(352): note: 参见对正在编译的 类 模板 实例化 "wxFormatStringSpecifier<T>" 的引用 (编译源文件 ..\..\..\..\..\src\libs\common\MD5Sum.cpp)
+f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(349): warning C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to acknowledge that you have received this warning. (编译源文件 ..\..\..\..\..\src\libs\common\FileFunctions.cpp)
+  d:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ios(351): note: 参见“std::tr1”的声明 (编译源文件 ..\..\..\..\..\src\libs\common\FileFunctions.cpp)
+  f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(352): note: 参见对正在编译的 类 模板 实例化 "wxFormatStringSpecifier<T>" 的引用 (编译源文件 ..\..\..\..\..\src\libs\common\FileFunctions.cpp)
+f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(349): warning C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to acknowledge that you have received this warning. (编译源文件 ..\..\..\..\..\src\libs\common\Path.cpp)
+  d:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ios(351): note: 参见“std::tr1”的声明 (编译源文件 ..\..\..\..\..\src\libs\common\Path.cpp)
+  f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(352): note: 参见对正在编译的 类 模板 实例化 "wxFormatStringSpecifier<T>" 的引用 (编译源文件 ..\..\..\..\..\src\libs\common\Path.cpp)
+f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(349): warning C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to acknowledge that you have received this warning. (编译源文件 ..\..\..\..\..\src\libs\common\TextFile.cpp)
+  d:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ios(351): note: 参见“std::tr1”的声明 (编译源文件 ..\..\..\..\..\src\libs\common\TextFile.cpp)
+  f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(352): note: 参见对正在编译的 类 模板 实例化 "wxFormatStringSpecifier<T>" 的引用 (编译源文件 ..\..\..\..\..\src\libs\common\TextFile.cpp)
+f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(349): warning C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to acknowledge that you have received this warning. (编译源文件 ..\..\..\..\..\src\libs\common\MuleDebug.cpp)
+  d:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ios(351): note: 参见“std::tr1”的声明 (编译源文件 ..\..\..\..\..\src\libs\common\MuleDebug.cpp)
+  f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(352): note: 参见对正在编译的 类 模板 实例化 "wxFormatStringSpecifier<T>" 的引用 (编译源文件 ..\..\..\..\..\src\libs\common\MuleDebug.cpp)
+f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(349): warning C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to acknowledge that you have received this warning. (编译源文件 ..\..\..\..\..\src\libs\common\StringFunctions.cpp)
+  d:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ios(351): note: 参见“std::tr1”的声明 (编译源文件 ..\..\..\..\..\src\libs\common\StringFunctions.cpp)
+  f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(352): note: 参见对正在编译的 类 模板 实例化 "wxFormatStringSpecifier<T>" 的引用 (编译源文件 ..\..\..\..\..\src\libs\common\StringFunctions.cpp)
+  strerror_r.c
+  libmulecommon.vcxproj -> F:\project_code\nas_lds\download_service\third_party\amule\amule\platforms\Windows\MSVC12\Debug\libmulecommon.lib

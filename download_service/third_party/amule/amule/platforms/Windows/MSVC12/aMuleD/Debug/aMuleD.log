@@ -1,0 +1,23 @@
+﻿  amule_settings.cpp
+  amuled.cpp
+  mule_download_task_impl.cpp
+f:\project_code\nas_lds\download_service\third_party\amule\amule\src\amule_settings.cpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+f:\project_code\nas_lds\download_service\third_party\amule\amule\src\mule_download_task_impl.cpp : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
+f:\project_code\nas_lds\download_service\third_party\amule\amule\src\mule_task_public_define.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 ..\..\..\..\src\amule_settings.cpp)
+f:\project_code\nas_lds\download_service\third_party\download_public_define.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 ..\..\..\..\src\amule_settings.cpp)
+f:\project_code\nas_lds\download_service\third_party\amule\amule\src\mule_task_public_define.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 ..\..\..\..\src\amuled.cpp)
+f:\project_code\nas_lds\download_service\third_party\download_public_define.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 ..\..\..\..\src\amuled.cpp)
+f:\project_code\nas_lds\download_service\third_party\amule\amule\src\mule_task_public_define.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 ..\..\..\..\src\mule_download_task_impl.cpp)
+f:\project_code\nas_lds\download_service\third_party\download_public_define.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失 (编译源文件 ..\..\..\..\src\mule_download_task_impl.cpp)
+    正在创建库 F:\project_code\nas_lds\download_service\third_party\amule\amule\platforms\Windows\MSVC12\Debug\netmule.lib 和对象 F:\project_code\nas_lds\download_service\third_party\amule\amule\platforms\Windows\MSVC12\Debug\netmule.exp
+libext.lib(zutil.obj) : warning LNK4099: 未找到 PDB“zlib.pdb”(使用“libext.lib(zutil.obj)”或在“F:\project_code\nas_lds\download_service\third_party\amule\amule\platforms\Windows\MSVC12\Debug\zlib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+libext.lib(uncompr.obj) : warning LNK4099: 未找到 PDB“zlib.pdb”(使用“libext.lib(uncompr.obj)”或在“F:\project_code\nas_lds\download_service\third_party\amule\amule\platforms\Windows\MSVC12\Debug\zlib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+libext.lib(trees.obj) : warning LNK4099: 未找到 PDB“zlib.pdb”(使用“libext.lib(trees.obj)”或在“F:\project_code\nas_lds\download_service\third_party\amule\amule\platforms\Windows\MSVC12\Debug\zlib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+libext.lib(inftrees.obj) : warning LNK4099: 未找到 PDB“zlib.pdb”(使用“libext.lib(inftrees.obj)”或在“F:\project_code\nas_lds\download_service\third_party\amule\amule\platforms\Windows\MSVC12\Debug\zlib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+libext.lib(inflate.obj) : warning LNK4099: 未找到 PDB“zlib.pdb”(使用“libext.lib(inflate.obj)”或在“F:\project_code\nas_lds\download_service\third_party\amule\amule\platforms\Windows\MSVC12\Debug\zlib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+libext.lib(inffast.obj) : warning LNK4099: 未找到 PDB“zlib.pdb”(使用“libext.lib(inffast.obj)”或在“F:\project_code\nas_lds\download_service\third_party\amule\amule\platforms\Windows\MSVC12\Debug\zlib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+libext.lib(deflate.obj) : warning LNK4099: 未找到 PDB“zlib.pdb”(使用“libext.lib(deflate.obj)”或在“F:\project_code\nas_lds\download_service\third_party\amule\amule\platforms\Windows\MSVC12\Debug\zlib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+libext.lib(crc32.obj) : warning LNK4099: 未找到 PDB“zlib.pdb”(使用“libext.lib(crc32.obj)”或在“F:\project_code\nas_lds\download_service\third_party\amule\amule\platforms\Windows\MSVC12\Debug\zlib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+libext.lib(compress.obj) : warning LNK4099: 未找到 PDB“zlib.pdb”(使用“libext.lib(compress.obj)”或在“F:\project_code\nas_lds\download_service\third_party\amule\amule\platforms\Windows\MSVC12\Debug\zlib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+libext.lib(adler32.obj) : warning LNK4099: 未找到 PDB“zlib.pdb”(使用“libext.lib(adler32.obj)”或在“F:\project_code\nas_lds\download_service\third_party\amule\amule\platforms\Windows\MSVC12\Debug\zlib.pdb”中寻找)；正在链接对象，如同没有调试信息一样
+  aMuleD.vcxproj -> F:\project_code\nas_lds\download_service\third_party\amule\amule\platforms\Windows\MSVC12\Debug\netmule.dll

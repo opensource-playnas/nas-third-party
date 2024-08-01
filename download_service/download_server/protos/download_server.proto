@@ -1,0 +1,198 @@
+syntax = "proto3";
+package download.v1;
+
+import "download_data_struct.proto";
+
+// The greeting service definition.
+service DownloadService {
+  // 支持添加下载http/https、ftp/ftps、ed2k的链接，可支持添加多个链接；magnet链接和BT文件下载请使用AddDownloadTorrent接口
+  rpc CreateLinkDownloadTask(CreateLinkDownloadTaskRequest) returns (CreateLinkDownloadTaskResponse) {}
+
+  // 添加下载BT种子文件
+  rpc CreateTorrentDownloadTask(CreateTorrentDownloadTaskRequest)  returns (CreateTorrentDownloadTaskReply) {}
+
+  // 针对BT文件需先上传种子文件
+  rpc UploadTorrentFile(UploadTorrentFileRequest) returns (UploadTorrentFileReply) {}
+
+  rpc Pause(PauseRequest) returns (PauseReply) {}
+
+  rpc PauseAll(PauseAllRequest) returns (PauseAllReply) {}
+
+  rpc Resume(ResumeRequest) returns (ResumeReply) {}
+
+  rpc ResumeAll(ResumeAllRequest) returns (ResumeAllReply) {}
+
+  rpc Delete(DeleteRequest) returns (DeleteReply) {}
+
+  rpc DeleteCategory(DeleteCategoryRequest) returns (DeleteCategoryReply) {}
+
+  rpc Retry(RetryRequest) returns (RetryReply) {}
+
+  rpc RetryAll(RetryAllRequest) returns (RetryAllReply) {}
+
+  rpc Clean(CleanRequest) returns (CleanReply) {}
+
+  rpc CleanCategory(CleanCategoryRequest) returns (CleanCategoryReply) {}
+
+  rpc Restore(RestoreRequest) returns (RestoreReply) {}
+
+  rpc RestoreAll(RestoreAllRequest) returns (RestoreAllReply) {}
+
+  rpc Get(GetRequest) returns (GetReply) {}
+
+  rpc ParseLink(ParseLinkRequest) returns (ParseLinkReply) {}
+
+  rpc ParseTorrent(ParseTorrentRequest) returns (ParseTorrentReply) {}
+
+  rpc GetTorrentUploadPath(GetTorrentUploadPathRequest) returns (GetTorrentUploadPathReply) {}
+}
+
+
+message CreateLinkDownloadTaskRequest {
+  repeated download_data_struct.SourceData source_list = 1; 
+}
+
+message CreateLinkDownloadTaskResponse {
+
+}
+
+message CreateTorrentDownloadTaskRequest {
+  string task_id = 1;     // 任务id
+  string task_name = 2;   // 任务名称
+  string source = 3;      // url链接源
+  string save_path = 4;   // 保存路径
+  repeated download_data_struct.TorrentItemSelectData torrent_item_select_list = 5; // 种子文件条目选择列表 
+  bool is_private_cloud_source = 6;  // 是否是私有云源
+}
+
+message CreateTorrentDownloadTaskReply {
+
+}
+
+message UploadTorrentFileRequest {
+  string file_content = 1;                //BT种子文件内容
+  string file_name = 2;                   //BT种子文件名称
+}
+
+message UploadTorrentFileReply {
+  string torrent_path = 1;                //BT种子文件路径   
+}
+
+// pause
+message PauseRequest {
+  repeated string task_ids = 1;     // 任务id列表
+}
+
+message PauseReply {
+}
+
+message PauseAllRequest {
+}
+
+message PauseAllReply {
+}
+
+// resume
+message ResumeRequest {
+  repeated string task_ids = 1;     // 任务id列表
+}
+
+message ResumeReply {
+}
+
+message ResumeAllRequest {
+}
+
+message ResumeAllReply {
+}
+
+// delete
+message DeleteRequest {
+  repeated string task_ids = 1;     // 任务id列表
+  bool is_delete_local_file  = 2;   // 是否删除本地文件
+}
+
+message DeleteReply {
+}
+
+message DeleteCategoryRequest {
+  int32 task_category = 1; // 任务分类
+  bool is_delete_local_file  = 2;   // 是否删除本地文件
+}
+
+message DeleteCategoryReply {
+}
+
+// retry
+message RetryRequest {
+  repeated string task_ids = 1;     // 任务id列表
+}
+
+message RetryReply {
+}
+
+message RetryAllRequest {
+}
+
+message RetryAllReply {
+}
+
+// clean
+message CleanRequest {
+  repeated string task_ids = 1;     // 任务id列表
+}
+
+message CleanReply {
+}
+
+message CleanCategoryRequest {
+  int32 task_category = 1; // 任务分类
+}
+
+message CleanCategoryReply {
+}
+
+// restore
+message RestoreRequest {
+  repeated string task_ids = 1;     // 任务id列表
+}
+
+message RestoreReply {
+}
+
+message RestoreAllRequest {
+}
+
+message RestoreAllReply {
+}
+
+// get
+message GetRequest {
+}
+
+message GetReply {
+  repeated download_data_struct.DownloadTaskInfo task_info_list = 1; // 任务列表
+}
+
+message ParseLinkRequest {
+  string source = 1; // 链接
+}
+
+message ParseLinkReply {
+  download_data_struct.SourceParseInfo file_info = 1; // 文件信息
+}
+
+message ParseTorrentRequest {
+  string source = 1;
+}
+
+message ParseTorrentReply {
+  string parse_result = 1;
+}
+
+message GetTorrentUploadPathRequest {
+}
+
+message GetTorrentUploadPathReply {
+  string torrent_path = 1;                //BT种子文件保存路径   
+}

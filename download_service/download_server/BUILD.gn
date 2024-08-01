@@ -1,0 +1,145 @@
+import("//build/config/c++/c++.gni")
+import("//build/config/win/console_app.gni")
+import("//testing/test.gni")
+import("//third_party/grpc/grpc_library.gni")
+
+grpc_library("download_proto_define") {
+  sources = [
+    "protos/download_data_struct.proto",
+    "protos/download_server.proto",
+  ]
+  use_protobuf_full = true
+}
+
+executable("download.service") {
+  # 和 win 下保持一致
+  if (is_posix) {
+    output_name = "$target_name.exe"
+  }
+  
+  sources = [
+    "src/db/download_info_store.cc",
+    "src/db/download_info_store.h",
+    "src/db/download_store_helper.cc",
+    "src/db/download_store_helper.h",
+    "src/detours.h",
+    "src/download_error_desc.cc",
+    "src/download_error_desc.h",
+    "src/download_grpc_server.cc",
+    "src/download_grpc_server.h",
+    "src/download_helper/download_api_interface.h",
+    "src/download_helper/download_interface_helper.cc",
+    "src/download_helper/download_interface_helper.h",
+    "src/download_mgr.cc",
+    "src/download_mgr.h",
+    "src/main.cc",
+    "src/parse_mgr.cc",
+    "src/parse_mgr.h",
+    "src/task/bt_magnet_task.cc",
+    "src/task/bt_magnet_task.h",
+    "src/task/bt_task_base.cc",
+    "src/task/bt_task_base.h",
+    "src/task/bt_torrent_task.cc",
+    "src/task/bt_torrent_task.h",
+    "src/task/curl_task.cc",
+    "src/task/curl_task.h",
+    "src/task/link_task.cc",
+    "src/task/link_task.h",
+    "src/task/mule_task.cc",
+    "src/task/mule_task.h",
+    "src/task/task_base.cc",
+    "src/task/task_base.h",
+    "src/task/task_common_define.h",
+    "src/task/task_info.cc",
+    "src/task/task_info.h",
+    "src/task_factory.cc",
+    "src/task_factory.h",
+    "src/user_info.cc",
+    "src/user_info.h",
+    "src/user_self_mgr.cc",
+    "src/user_self_mgr.h",
+    "src/utils/save_path_queue.cc",
+    "src/utils/save_path_queue.h",
+    "src/utils/utils.cc",
+    "src/utils/utils.h",
+    "src/grpc_call_data/create_link_call_data.cc",
+    "src/grpc_call_data/create_link_call_data.h",
+    "src/grpc_call_data/parse_link_call_data.cc",
+    "src/grpc_call_data/parse_link_call_data.h",
+    "src/grpc_call_data/upload_torrent_call_data.cc",
+    "src/grpc_call_data/upload_torrent_call_data.h",
+    "src/grpc_call_data/create_torrent_call_data.cc",
+    "src/grpc_call_data/create_torrent_call_data.h",
+    "src/grpc_call_data/parse_torrent_call_data.cc",
+    "src/grpc_call_data/parse_torrent_call_data.h",
+    "src/grpc_call_data/pause_call_data.cc",
+    "src/grpc_call_data/pause_call_data.h",
+    "src/grpc_call_data/pause_all_call_data.cc",
+    "src/grpc_call_data/pause_all_call_data.h",
+    "src/grpc_call_data/resume_call_data.cc",
+    "src/grpc_call_data/resume_call_data.h",
+    "src/grpc_call_data/resume_all_call_data.cc",
+    "src/grpc_call_data/resume_all_call_data.h",
+    "src/grpc_call_data/delete_call_data.cc",
+    "src/grpc_call_data/delete_call_data.h",
+    "src/grpc_call_data/delete_category_call_data.cc",
+    "src/grpc_call_data/delete_category_call_data.h",
+    "src/grpc_call_data/get_call_data.cc",
+    "src/grpc_call_data/get_call_data.h",
+    "src/grpc_call_data/retry_call_data.cc",
+    "src/grpc_call_data/retry_call_data.h",
+    "src/grpc_call_data/retry_all_call_data.cc",
+    "src/grpc_call_data/retry_all_call_data.h",
+    "src/grpc_call_data/restore_call_data.cc",
+    "src/grpc_call_data/restore_call_data.h",
+    "src/grpc_call_data/restore_all_call_data.cc",
+    "src/grpc_call_data/restore_all_call_data.h",
+    "src/grpc_call_data/clean_call_data.cc",
+    "src/grpc_call_data/clean_call_data.h",
+    "src/grpc_call_data/clean_category_call_data.cc",
+    "src/grpc_call_data/clean_category_call_data.h",
+    "src/grpc_call_data/get_torrent_upload_path_call_data.cc",
+    "src/grpc_call_data/get_torrent_upload_path_call_data.h",
+    "src/public_define.h",
+    "src/config/system_cloud_config.cc",
+    "src/config/system_cloud_config.h",
+    "src/task_ref_count.cc",
+    "src/task_ref_count.h",
+  ]
+  include_dirs = [
+    "./",
+    "//nas/download_service/download_server/src",
+    "//nas/common",
+    "//nas/download_service/third_party",
+  ]
+  configs += [ "//build/config/c++:runtime_library" ]
+  configs += [ "//build/config/compiler:exceptions" ]
+
+  if (win_console_app) {
+    defines += [ "WIN_CONSOLE_APP" ]
+  } else if(is_win) {
+    configs -= [ "//build/config/win:console" ]
+    configs += [ "//build/config/win:windowed" ]
+  }
+  cflags = [ "-w" ]
+  deps = [
+    ":download_proto_define",
+    "//base:base",
+    "//nas/common:common",
+    "//nas/common:grpc_base_service",
+    "//nas/common:main",
+    "//nas/common:nas_config",
+    "//nas/common:path",
+    "//nas/common:request_context",
+    "//nas/common:sqlite_store_base",
+    "//nas/common:url_fetcher_wrapper",
+    "//nas/cpp_redis:cpp_redis",
+    "//sql:sql",
+    "//third_party/abseil-cpp:absl",
+    "//third_party/grpc:grpc++",
+    "//third_party/grpc/src/src/proto/grpc/health/v1:health_proto",
+    "//url:url",
+    "//nas/common:grpc_server_call_data",
+    "//nas/common:nas_thread",
+  ]
+}

@@ -1,0 +1,36 @@
+﻿  ECMuleSocket.cpp
+  ECPacket.cpp
+  ECSocket.cpp
+  ECSpecialTags.cpp
+  ECTag.cpp
+  ECUInt128.cpp
+  RemoteConnect.cpp
+  Please update wx/platform.h to recognize this VC++ version
+  Please update wx/platform.h to recognize this VC++ version
+  Please update wx/platform.h to recognize this VC++ version
+  Please update wx/platform.h to recognize this VC++ version
+  Please update wx/platform.h to recognize this VC++ version
+  Please update wx/platform.h to recognize this VC++ version
+  Please update wx/platform.h to recognize this VC++ version
+f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(349): warning C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to acknowledge that you have received this warning. (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\ECTag.cpp)
+  d:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ios(351): note: 参见“std::tr1”的声明 (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\ECTag.cpp)
+  f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(352): note: 参见对正在编译的 类 模板 实例化 "wxFormatStringSpecifier<T>" 的引用 (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\ECTag.cpp)
+f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(349): warning C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to acknowledge that you have received this warning. (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\ECUInt128.cpp)
+  d:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ios(351): note: 参见“std::tr1”的声明 (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\ECUInt128.cpp)
+  f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(352): note: 参见对正在编译的 类 模板 实例化 "wxFormatStringSpecifier<T>" 的引用 (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\ECUInt128.cpp)
+f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(349): warning C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to acknowledge that you have received this warning. (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\ECSpecialTags.cpp)
+  d:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ios(351): note: 参见“std::tr1”的声明 (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\ECSpecialTags.cpp)
+  f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(352): note: 参见对正在编译的 类 模板 实例化 "wxFormatStringSpecifier<T>" 的引用 (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\ECSpecialTags.cpp)
+f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(349): warning C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to acknowledge that you have received this warning. (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\ECMuleSocket.cpp)
+  d:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ios(351): note: 参见“std::tr1”的声明 (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\ECMuleSocket.cpp)
+  f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(352): note: 参见对正在编译的 类 模板 实例化 "wxFormatStringSpecifier<T>" 的引用 (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\ECMuleSocket.cpp)
+f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(349): warning C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to acknowledge that you have received this warning. (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\ECPacket.cpp)
+  d:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ios(351): note: 参见“std::tr1”的声明 (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\ECPacket.cpp)
+  f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(352): note: 参见对正在编译的 类 模板 实例化 "wxFormatStringSpecifier<T>" 的引用 (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\ECPacket.cpp)
+f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(349): warning C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to acknowledge that you have received this warning. (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\RemoteConnect.cpp)
+  d:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ios(351): note: 参见“std::tr1”的声明 (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\RemoteConnect.cpp)
+  f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(352): note: 参见对正在编译的 类 模板 实例化 "wxFormatStringSpecifier<T>" 的引用 (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\RemoteConnect.cpp)
+f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(349): warning C4996: 'std::tr1': warning STL4002: The non-Standard std::tr1 namespace and TR1-only machinery are deprecated and will be REMOVED. You can define _SILENCE_TR1_NAMESPACE_DEPRECATION_WARNING to acknowledge that you have received this warning. (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\ECSocket.cpp)
+  d:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.16.27023\include\ios(351): note: 参见“std::tr1”的声明 (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\ECSocket.cpp)
+  f:\project_code\nas_lds\download_service\third_party\amule\wxwidgets\include\wx\strvararg.h(352): note: 参见对正在编译的 类 模板 实例化 "wxFormatStringSpecifier<T>" 的引用 (编译源文件 ..\..\..\..\..\src\libs\ec\cpp\ECSocket.cpp)
+  libmuleec.vcxproj -> F:\project_code\nas_lds\download_service\third_party\amule\amule\platforms\Windows\MSVC12\Debug\libmuleec.lib
